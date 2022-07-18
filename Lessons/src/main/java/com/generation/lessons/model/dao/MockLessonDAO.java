@@ -26,7 +26,9 @@ public class MockLessonDAO implements LessonDAO
 	@Override
 	public Lesson get(String ID)
 	{
-		// TODO Auto-generated method stub
+		for(Lesson l : lessons)
+			if(l.getID().equals(ID))
+				return l;
 		return null;
 	}
 

@@ -76,4 +76,9 @@ public class Lesson extends Entity
 		return 	student!=null && !student.isBlank() &&
 				hour >=9  && hour<=22 && day.isValid();
 	}
+	
+	public String toCSV()
+	{
+		return getID()+","+getStudent()+","+getDay()+","+getHour();
+	}
 }

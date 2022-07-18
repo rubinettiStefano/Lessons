@@ -38,11 +38,19 @@ public class WS extends HttpServlet
 			//LA RICHIESTA È DI LEGGERE TUTTE LE LEZIONI
 			for(Lesson lesson : lessonDAO.getAll())
 				response.getWriter()
-				.append
-					(
-						lesson.getID()+","+lesson.getStudent()+","
-						+lesson.getDay()+","+lesson.getHour()+"\n"
-					);
+				.append(lesson.toCSV()+"\n");
+			
+			return;
+		}
+		
+		if(URI.startsWith("/Lessons/"))
+		{
+			String ID = URI.replace("/Lessons", "");
+			Lesson lesson = lessonDAO.get(ID);
+			if(lesson==null)
+				response.setStatus(404);
+			else
+				response.getWriter().append(lesson.toCSV()+"\n");
 			
 		}
 	}
@@ -72,12 +80,7 @@ public class WS extends HttpServlet
 				//1 - devo dirgli in che formato gli rispondo
 				response.addHeader("Content-type", "text/csv");
 				//2 - metto nel BODY quello che voglio
-				response.getWriter()
-						.append
-							(
-								lesson.getID()+","+lesson.getStudent()+","
-								+lesson.getDay()+","+lesson.getHour()
-							);
+				response.getWriter().append(lesson.toCSV()+"\n");
 				
 				response.setStatus(201); //201 = CREATED SUCCESSFULLY
 			}
