@@ -73,7 +73,7 @@ public class Lesson extends Entity
 	@Override
 	public boolean isValid()
 	{
-		//TODO
-		return false;
+		return 	student!=null && !student.isBlank() &&
+				hour >=9  && hour<=22 && day.isValid();
 	}
 }
