@@ -6,7 +6,7 @@ package com.generation.lessons.model.entities;
  * @author rubin
  *
  */
-public abstract class Entity
+public abstract class Entity implements Validable
 {
 	//protected = visibile nel package e da tutti i DISCENDENTI
 	protected String ID;
@@ -17,9 +17,9 @@ public abstract class Entity
 		return ID;
 	}
 
-	public void setID(String iD)
+	public void setID(String ID)
 	{
-		ID = iD;
+		this.ID = ID;
 	}
 	
 	
