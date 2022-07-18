@@ -19,7 +19,7 @@ public interface LessonDAO
 	
 	List<Lesson> getAll();
 	
-	void update(Lesson newVersion);
+	Lesson update(Lesson newVersion);
 	
 	void delete(String ID);
 	

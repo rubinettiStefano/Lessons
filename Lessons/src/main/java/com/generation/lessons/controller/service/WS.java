@@ -95,13 +95,74 @@ public class WS extends HttpServlet
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException
 	{
-		//UPDATE
+		String URI = request.getRequestURI();
+		if(URI.equals("/Lessons") || URI.equals("/Lessons/"))
+		{
+			response.setStatus(403);
+			return;
+		}
+
+		if(URI.startsWith("/Lessons/"))
+		{
+			String[] parts = URI.replace("/Lessons/", "").split("/");
+			String ID = parts[0];
+			Lesson oldVersion = lessonDAO.get(ID);
+		
+			if(oldVersion==null)
+			{
+				response.setStatus(404);
+				return;
+			}
+		
+			try
+			{
+				
+				
+				String student = parts[1];
+				String day = parts[2].replace("-", "/");
+				int hour = Integer.parseInt(parts[3]);
+	
+				Lesson newVersion = new Lesson(student,day,hour);
+				newVersion.setID(ID);
+				lessonDAO.update(newVersion);
+				
+				response.addHeader("Content-type", "text/csv");
+				response.getWriter().append(newVersion.toCSV()+"\n");
+				
+				response.setStatus(200); 
+			}
+			catch(Exception e)
+			{
+				response.setStatus(400);
+				response.getWriter().append(e.toString());
+			}
+		}
+			
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException 
 	{
 		//DELETE
+		String URI = request.getRequestURI();
+		if(URI.equals("/Lessons") || URI.equals("/Lessons/"))
+		{
+			response.setStatus(403); //FORBIDDENM
+			return;
+		}
+		
+		if(URI.startsWith("/Lessons/"))
+		{
+			String ID = URI.replace("/Lessons/", "");
+			Lesson lesson = lessonDAO.get(ID);
+			if(lesson==null)
+				response.setStatus(404);
+			else
+				lessonDAO.delete(ID);
+			return;
+		}
+		
+		response.setStatus(400);
 	}
 
 }

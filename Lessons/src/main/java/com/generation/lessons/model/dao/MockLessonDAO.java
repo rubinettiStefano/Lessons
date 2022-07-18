@@ -39,16 +39,21 @@ public class MockLessonDAO implements LessonDAO
 	}
 
 	@Override
-	public void update(Lesson newVersion)
+	public Lesson update(Lesson lesson)
 	{
-		// TODO Auto-generated method stub
-		
+	
+		if(get(lesson.getID())==null)
+			throw new RuntimeException ("Not found");
+		delete(lesson.getID());
+		return insert(lesson);
 	}
 
 	@Override
 	public void delete(String ID)
 	{
-		// TODO Auto-generated method stub
+		Lesson toKill = get(ID);
+		if(toKill!=null)
+			lessons.remove(toKill);
 		
 	}
 }
