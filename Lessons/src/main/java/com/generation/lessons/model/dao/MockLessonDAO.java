@@ -33,8 +33,7 @@ public class MockLessonDAO implements LessonDAO
 	@Override
 	public List<Lesson> getAll()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return lessons;
 	}
 
 	@Override

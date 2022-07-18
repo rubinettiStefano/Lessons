@@ -32,10 +32,19 @@ public class WS extends HttpServlet
 	{
 		//READ
 		String URI = request.getRequestURI();
-		if(!URI.startsWith("/Lessons"))
-			response.setStatus(400);
-		else
+		if(URI.equals("/Lessons") || URI.equals("/Lessons/"))
+		{
+			response.addHeader("Content-type", "text/csv");
+			//LA RICHIESTA È DI LEGGERE TUTTE LE LEZIONI
+			for(Lesson lesson : lessonDAO.getAll())
+				response.getWriter()
+				.append
+					(
+						lesson.getID()+","+lesson.getStudent()+","
+						+lesson.getDay()+","+lesson.getHour()+"\n"
+					);
 			
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
