@@ -45,7 +45,7 @@ public class WS extends HttpServlet
 		
 		if(URI.startsWith("/Lessons/"))
 		{
-			String ID = URI.replace("/Lessons", "");
+			String ID = URI.replace("/Lessons/", "");
 			Lesson lesson = lessonDAO.get(ID);
 			if(lesson==null)
 				response.setStatus(404);
