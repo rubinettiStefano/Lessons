@@ -15,6 +15,13 @@ public class Lesson extends Entity
 		this.student = student;
 	}
 
+	public Lesson(String ID,String student,String day, int hour)
+	{
+		setID(ID);
+		this.day = new Date(day);
+		this.hour = hour;
+		this.student = student;
+	}
 	public Date getDay()
 	{
 		return day;

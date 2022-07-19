@@ -20,11 +20,12 @@ public class WS extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
        
-	LessonDAO lessonDAO = new MockLessonDAO();
+	LessonDAO lessonDAO;
 	
     public WS() 
     {
         super();
+        lessonDAO = (LessonDAO) Context.getDependency(LessonDAO.class);
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
